@@ -1,17 +1,30 @@
-const upload_modal_button = document.querySelector('.upload_modal_button')
+const backend_base_url = "http://127.0.0.1:5000"
+const frontend_base_url = "http://127.0.0.1:5500"
 
+// select값 가져오기(getElementBy로 바꿔까 고민 중)
+const upload_modal_button = document.querySelector('.upload_modal_button')
 const upload_modal = document.querySelector('.upload_modal');
+// const um_header_exit_btn = document.querySelector('.um_header_exit_btn')
+const um_header_upload_btn = document.querySelector('.um_header_upload_btn');
 const um_preview_image_box = document.getElementById('um_preview_image_box')
 const um_p_ib_wrapper = document.getElementById('um_p_ib_wrapper')
+const um_preview_images = document.querySelector('.um_preview_images')
 const um_desc = document.querySelector('.um_desc');
-// const um_header_next_btn = document.querySelector('.um_header_next_btn')
-const um_header_upload_btn = document.querySelector('.um_header_upload_btn');
+const um_cp_ma_form = document.querySelector('.um_cp_ma_form')
+const um_cp_ma_f_input = document.getElementById('.um_cp_ma_f_input');
+const um_exit_button_box = document.querySelector('.um_exit_button_box')
+
+const um_comment_ready = document.querySelector('.um_comment_ready');
 const um_comment_page = document.querySelector('.um_comment_page');
+const um_cp_ma_result = document.querySelector('.um_cp_ma_result');
+const result = document.getElementById('result');
+const opinion = document.getElementById('opinion');
+
 const mh_i_square = document.querySelector('.mh_i_square')
 const upload_modal_wrapper = document.querySelector('.upload_modal_wrapper')
 const ul_bb_prev = document.querySelector('.ul_bb_prev')
 const ul_bb_next = document.querySelector('.ul_bb_next')
-const um_preview_images = document.querySelector('.um_preview_images')
+
 
 
 upload_modal_button.addEventListener('click', function () {
@@ -63,7 +76,7 @@ upload_modal.addEventListener('drop', function (e) {
     if (!isValid(data)) return;
 
     // 이미지 박스 가로 길이 설정
-    um_p_ib_wrapper.style.width = 400 * data.files.length + "px"
+    // um_p_ib_wrapper.style.width = 400 * data.files.length + "px"
     file_length = data.files.length
 
     // 이미지 프리뷰
@@ -72,11 +85,13 @@ upload_modal.addEventListener('drop', function (e) {
 
         const reader = new FileReader(); // 파일 읽는 함수
         reader.onload = () => {
-            um_p_ib_wrapper.innerHTML +=
-                `
-            <img class="um_preview_images" src="${reader.result}">
-            `
+            um_preview_images.setAttribute("src", reader.result)
+            // um_p_ib_wrapper.innerHTML +=
+            //     `
+            // <img class="um_preview_images" src="${reader.result}">
+            // `
         }
+
         reader.readAsDataURL(data.files[i]) // readAsDataURL: 컨텐츠를 특정 File에서 읽어 옴
     }
 
@@ -89,7 +104,7 @@ upload_modal.addEventListener('drop', function (e) {
     }
 });
 
-// 이미지 캐러셀 처리
+// // 이미지 캐러셀 처리
 // ul_bb_cur_idx = 0
 // ul_bb_next.addEventListener('click', function () {
 //     ul_bb_prev.style.visibility = 'visible'
@@ -108,33 +123,21 @@ upload_modal.addEventListener('drop', function (e) {
 //     um_p_ib_wrapper.style.transition = 500 + 'ms'
 // })
 
-// 코멘트 작성 파트
-// um_header_next_btn.addEventListener('click', function () {
-//     um_header_next_btn.style.display = 'none'
-//     // upload_modal.style.transition = 500 + "ms"
-//     // upload_modal.style.width = 800 + "px"
-
-//     setTimeout(() => {
-//         um_header_upload_btn.style.display = 'flex'
-//         um_comment_page.style.display = 'block'
-//         um_preview_images.style.borderRadius = "0px 0px 0px 0px";
-//     }, 500)
-// })
-
 
 // 업로드 실행
 um_header_upload_btn.addEventListener('click', () => {
-    // let content_give = $('#um_cp_ma_f_input').val() // 작성글
-    // formData.append('content', content_give)
+    let age_give = $('#um_cp_ma_f_input').val() // 입력값
+    formData.append('input_age', age_give)
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:5000/posts",
+        url: "http://127.0.0.1:5000/post",
         data: formData,
         processData: false,
         contentType: false,
         success: function (response) {
             alert(response['msg'])
-            window.location.reload()
+            // window.location.reload()
+            getFileInfo(response.filename)
         },
 
     })
@@ -142,9 +145,73 @@ um_header_upload_btn.addEventListener('click', () => {
 })
 
 
+// 파일 정보 불러오기
+async function getFileInfo(filename) {
+
+    const fileData = {
+        filename: filename,
+    }
+
+    const response = await fetch('http://127.0.0.1:5000/posts', {
+        method: 'POST',
+        body: JSON.stringify(fileData)
+
+    })
+    response_json = await response.json()
+    console.log(response_json)
+
+    // 구현 데이터(임시)
+    post = response_json.post
+    img_name = post.img_name
+    input_age = post.input_age
+
+    // model_result = response_json.model_result
+    // img_name = model_result.img_name
+    // result_age = model_result.result_age
+
+    um_preview_images.setAttribute("src", `http://127.0.0.1:5000/static/img/upload_img/${img_name}`)
+    // result.innerText = result_age
+    // if (input_age - result_age > 0) {
+    //     opinion.innerText = "너무 속상해 하지 마세요"
+    // } else if (input_age - result_age == 0) {
+    //     opinion.innerText = "정확합니다!"
+    // } else {
+    //     opinion.innerText = "동안이시네요!"
+    // }
+
+    modalTransform()
+}
+
+
+// 모달 형태 변환
+function modalTransform() {
+    um_header_upload_btn.style.display = 'none'
+    um_cp_ma_form.style.display = 'none'
+    upload_modal.style.transition = 500 + "ms"
+    upload_modal.style.height = 550 + "px"
+    um_exit_button_box.style.display = 'flex'
+    um_comment_ready.style.display = 'block'
+
+    setTimeout(() => {
+        upload_modal.style.transition = 500 + "ms"
+        upload_modal.style.height = 800 + "px"
+        um_comment_ready.style.display = 'none'
+        um_comment_page.style.display = 'block'
+    }, 3000)
+}
+
+
+// 확인 버튼 클릭 시 모달 숨김
+um_header_exit_btn.addEventListener('click', function (e) {
+    upload_modal_wrapper.style.display = 'none'
+    window.location.reload()
+})
+
+
 // 바깥 클릭 시 모달 숨김
 upload_modal_wrapper.addEventListener('click', function (e) {
     if (e.target.classList.contains('upload_modal_wrapper')) {
         upload_modal_wrapper.style.display = 'none'
+        window.location.reload()
     }
 })
