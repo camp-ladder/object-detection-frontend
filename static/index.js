@@ -202,7 +202,7 @@ function modalTransform() {
 
 
 // 확인 버튼 클릭 시 모달 숨김
-um_header_exit_btn.addEventListener('click', function (e) {
+um_exit_button_box.addEventListener('click', function (e) {
     upload_modal_wrapper.style.display = 'none'
     window.location.reload()
 })
