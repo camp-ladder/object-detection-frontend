@@ -38,6 +38,9 @@ h1 {
     width: 100%;
     border-bottom: 0.5px solid rgb(200, 200, 200);
     padding: 10px 0;
+
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .um_header_upload_btn {
@@ -46,21 +49,12 @@ h1 {
     top: 0.7rem;
     color: rgb(65, 147, 239);
     display: none;
+
+    font-size: 15px;
+    font-weight: bold;
 }
 
 .um_header_upload_btn:hover {
-    cursor: pointer;
-}
-
-.um_header_exit_btn {
-    position: absolute;
-    left: 22rem;
-    top: 0.7rem;
-    color: rgb(65, 147, 239);
-    display: none;
-}
-
-.um_header_exit_btn:hover {
     cursor: pointer;
 }
 
@@ -69,8 +63,6 @@ h1 {
     padding: 100px;
     z-index: 4;
 }
-
-
 
 #um_preview_image_box {
     display: none;
@@ -225,8 +217,12 @@ h1 {
     height: 50px;
 
     color: white;
-    background-color: rgb(57, 57, 240);
+    background-color: rgb(89, 89, 222);
     border-radius: 10px;
     border: 0;
 
+}
+
+.um_exit_button:hover {
+    cursor: pointer;
 }
