@@ -92,7 +92,28 @@ async function userLogin() {
     console.log(response_json)
     localStorage.setItem("token", response_json.token)
 
-    if (response.status === 200) {
-        alert("로그인 성공!")
+    if (response.status === 401) {
+        alert("아이디와 비밀번호를 확인해주세요.")
+        return
+    } else if (response.status === 200) {
+        alert("로그인 완료!")
+        window.location.replace(`${frontend_base_url}/templates/index.html`);
+    }
+}
+
+async function getName() {
+    const response = await fetch(`${backend_base_url}/getuserinfo`, {
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        }
+    })
+
+    // status 200 확인 조건문
+    if (response.status == 200) {
+        response_json = await response.json()
+        console.log(response_json)
+        response_json.email
+    } else {
+        return null
     }
 }
