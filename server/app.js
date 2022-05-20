@@ -97,7 +97,7 @@ async function userLogin() {
         return
     } else if (response.status === 200) {
         alert("로그인 완료!")
-        window.location.replace(`${frontend_base_url}/templates/index.html`);
+        window.location.replace(`${frontend_base_url}/`);
     }
 }
 
@@ -116,4 +116,9 @@ async function getName() {
     } else {
         return null
     }
+}
+
+function logout() {
+    localStorage.removeItem("token")
+    window.location.replace(`${frontend_base_url}/`);
 }
