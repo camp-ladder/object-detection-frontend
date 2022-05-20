@@ -128,7 +128,7 @@ um_header_upload_btn.addEventListener('click', () => {
     // formData.append('content', content_give)
     $.ajax({
         type: "POST",
-        url: "/posts",
+        url: "http://127.0.0.1:5000/posts",
         data: formData,
         processData: false,
         contentType: false,
