@@ -201,7 +201,7 @@ async function saveData(result_id) {
 
     formData.append('result_id', result_id) // result_id 함께 저장
 
-    const response = await fetch('http://127.0.0.1:5000/postpost', {
+    const response = await fetch('http://127.0.0.1:5000/post', {
         method: 'POST',
         body: formData
     })
