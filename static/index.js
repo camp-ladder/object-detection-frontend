@@ -11,7 +11,7 @@ const um_p_ib_wrapper = document.getElementById('um_p_ib_wrapper')
 const um_preview_images = document.querySelector('.um_preview_images')
 const um_desc = document.querySelector('.um_desc');
 const um_cp_ma_form = document.querySelector('.um_cp_ma_form')
-const um_cp_ma_f_input = document.getElementById('.um_cp_ma_f_input');
+const um_cp_ma_f_input = document.getElementById('um_cp_ma_f_input');
 const um_save_button_box = document.querySelector('.um_save_button_box')
 const um_save_button = document.querySelector('.um_save_button')
 const um_exit_button = document.querySelector('.um_exit_button')
@@ -127,24 +127,18 @@ upload_modal.addEventListener('drop', function (e) {
 
 
 // 업로드 및 측정 실행
-um_header_upload_btn.addEventListener('click', () => {
-    let age_give = $('#um_cp_ma_f_input').val() // 입력값
+um_header_upload_btn.addEventListener('click', async () => {
+    console.log(um_cp_ma_f_input)
+    let age_give = um_cp_ma_f_input.value // 입력값
     formData.append('input_age', age_give)
-    $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/calculate",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            alert(response['msg'])
-            // window.location.reload()
-            getFileInfo(response.result)
 
-        },
-
+    const response = await fetch('http://127.0.0.1:5000/calculate', {
+        method: 'POST',
+        body: formData
     })
-
+    response_json = await response.json()
+    console.log(response_json)
+    getFileInfo(response_json.result)
 })
 
 
@@ -199,20 +193,19 @@ function modalTransform() {
 
 
 // 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
-function saveData() {
-    $.ajax({
-        type: "POST",
-        url: "http://127.0.0.1:5000/post",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (response) {
-            alert(response['msg'])
-            upload_modal_wrapper.style.display = 'none'
-            window.location.reload()
-        }
+async function saveData() {
+
+    const response = await fetch('http://127.0.0.1:5000/post', {
+        method: 'POST',
+        body: formData
     })
+    response_json = await response.json()
+    console.log(response_json)
+    alert(response_json['msg'])
+    upload_modal_wrapper.style.display = 'none'
+    window.location.reload()
 }
+
 
 // 확인 버튼 클릭 시 모달 숨김
 um_exit_button.addEventListener('click', function (e) {
