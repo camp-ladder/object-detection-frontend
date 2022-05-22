@@ -145,7 +145,7 @@ um_header_upload_btn.addEventListener('click', async () => {
 // 측정 결과 보여주기
 async function getFileInfo(result) {
 
-    // const response = await fetch(`http://127.0.0.1:5000/calculate/${filename}`, {
+    // const response = await fetch(`http://127.0.0.1:5000/result/${filename}`, {
     //     method: 'GET',
     // })
     // response_json = await response.json()
@@ -172,6 +172,7 @@ async function getFileInfo(result) {
     }
 
     um_save_button.setAttribute("onclick", `saveData('${result_id}')`) // 저장하기 버튼에 _id 보내줌
+    um_exit_button.setAttribute("onclick", `exit('${result_id}')`)
 
     modalTransform()
 }
@@ -200,7 +201,7 @@ async function saveData(result_id) {
 
     formData.append('result_id', result_id) // result_id 함께 저장
 
-    const response = await fetch('http://127.0.0.1:5000/post', {
+    const response = await fetch('http://127.0.0.1:5000/postpost', {
         method: 'POST',
         body: formData
     })
@@ -213,10 +214,19 @@ async function saveData(result_id) {
 
 
 // 확인 버튼 클릭 시 모달 숨김
-um_exit_button.addEventListener('click', function (e) {
+async function exit(result_id) {
+
+    const response = await fetch(`http://127.0.0.1:5000/result/${result_id}`, {
+        method: 'DELETE',
+        // headers: {
+        //     'Authorization': localStorage.getItem("user_token")
+        // }
+    })
+    response_json = await response.json()
+    console.log(response_json)
     upload_modal_wrapper.style.display = 'none'
     window.location.reload()
-})
+}
 
 
 // 바깥 클릭 시 모달 숨김
