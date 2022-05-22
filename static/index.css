@@ -62,7 +62,7 @@ body {
     color: rgb(65, 147, 239);
     display: none;
 
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -254,6 +254,14 @@ body {
 
 .um_exit_button:hover {
     cursor: pointer;
+}
+
+.main_content_box {
+    margin: 0 auto 0 auto;
+    padding: 100px;
+    background-color: rgba(241, 240, 240, 0.8);
+    border-radius: 50px;
+    box-shadow: 2px 2px rgba(189, 196, 208, 0.5);
 }
 
 /* 메인 타이틀 */
