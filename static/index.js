@@ -12,7 +12,8 @@ const um_preview_images = document.querySelector('.um_preview_images')
 const um_desc = document.querySelector('.um_desc');
 const um_cp_ma_form = document.querySelector('.um_cp_ma_form')
 const um_cp_ma_f_input = document.getElementById('.um_cp_ma_f_input');
-const um_exit_button_box = document.querySelector('.um_exit_button_box')
+const um_save_button_box = document.querySelector('.um_save_button_box')
+const um_save_button = document.querySelector('.um_save_button')
 
 const um_comment_ready = document.querySelector('.um_comment_ready');
 const um_comment_page = document.querySelector('.um_comment_page');
@@ -55,14 +56,14 @@ upload_modal.addEventListener('dragover', function (e) {
 
 upload_modal.addEventListener("dragenter", function (e) {
     if (e.target.className == "um_desc") {
-        um_desc.style.background = "gray";
+        um_desc.style.background = "#cfc6c68c";
     }
 });
 
-// upload_modal.addEventListener('dragleave', function (e) {
-//     e.preventDefault();
-//     um_desc.style.background = "gray";
-// });
+upload_modal.addEventListener('dragleave', function (e) {
+    e.preventDefault();
+    um_desc.style.background = "none";
+});
 
 
 const formData = new FormData(); // new: 새로운 객체를 만들어서 리턴
@@ -189,7 +190,7 @@ function modalTransform() {
     um_cp_ma_form.style.display = 'none'
     upload_modal.style.transition = 500 + "ms"
     upload_modal.style.height = 550 + "px"
-    um_exit_button_box.style.display = 'flex'
+    um_save_button_box.style.display = 'flex'
     um_comment_ready.style.display = 'block'
 
     setTimeout(() => {
@@ -202,7 +203,13 @@ function modalTransform() {
 
 
 // 확인 버튼 클릭 시 모달 숨김
-um_exit_button_box.addEventListener('click', function (e) {
+um_save_button.addEventListener('click', function (e) {
+    upload_modal_wrapper.style.display = 'none'
+    window.location.reload()
+})
+
+// 확인 버튼 클릭 시 모달 숨김
+um_exit_button.addEventListener('click', function (e) {
     upload_modal_wrapper.style.display = 'none'
     window.location.reload()
 })

@@ -14,60 +14,71 @@
 </head>
 
 <body>
-    <div class="upload_modal_wrapper">
-        <div class="upload_modal">
-            <div class="um_header">
-                사진 업로드
-                <span class="um_header_upload_btn">측정</span>
-            </div>
-            <div class="um_body">
-                <div class="up_load_button_box">
-                    <div class="ul_bb_prev">
-                        <i class="bi bi-chevron-left"></i>
-                    </div>
-                    <div class="ul_bb_next">
-                        <i class="bi bi-chevron-right"></i>
-                    </div>
+    <div class="main">
+        <div class="upload_modal_wrapper">
+            <div class="upload_modal">
+                <div class="um_header">
+                    사진 업로드
+                    <span class="um_header_upload_btn">측정</span>
                 </div>
-                <div id="um_preview_image_box">
-                    <div id="um_p_ib_wrapper">
-                        <img class="um_preview_images" src="">
+                <div class="um_body">
+                    <div class="up_load_button_box">
+                        <div class="ul_bb_prev">
+                            <i class="bi bi-chevron-left"></i>
+                        </div>
+                        <div class="ul_bb_next">
+                            <i class="bi bi-chevron-right"></i>
+                        </div>
                     </div>
-                    <form class="um_cp_ma_form">
-                        <input placeholder="나이를 입력해 주세요." onfocus="this.placeholder=''"
-                            onblur="this.placeholder='나이를 입력해 주세요.'" type="text" id="um_cp_ma_f_input" />
-                    </form>
-                </div>
-                <div class="um_desc">파일을 끌어다가 놓으세요</div>
-                <div class="um_comment_ready">
-                    <div class="um_cp_my_account">
-                        <div class="um_cp_ma_ready">측정 중 입니다...</div>
+                    <div id="um_preview_image_box">
+                        <div id="um_p_ib_wrapper">
+                            <img class="um_preview_images" src="">
+                        </div>
+                        <form class="um_cp_ma_form">
+                            <input placeholder="나이를 입력해 주세요." onfocus="this.placeholder=''"
+                                onblur="this.placeholder='나이를 입력해 주세요.'" type="text" id="um_cp_ma_f_input" />
+                        </form>
                     </div>
-                </div>
-                <div class="um_comment_page">
-                    <div class="um_cp_my_account">
-                        <div class="um_cp_ma_result">측정 결과</div>
+                    <div class="um_desc">사진을 끌어다가 놓으세요</div>
+                    <div class="um_comment_ready">
+                        <div class="um_cp_my_account">
+                            <div class="um_cp_ma_ready">측정 중 입니다...</div>
+                        </div>
                     </div>
-                    <div class="um_cp_my_account2">
-                        <div class="um_cp_ma_result" style="font-size: 50px;" id="result">0</div>
-                        <span style="font-weight: bold; font-size: 50px;"> 세</span>
+                    <div class="um_comment_page">
+                        <div class="um_cp_my_account">
+                            <div class="um_cp_ma_result">측정 결과</div>
+                        </div>
+                        <div class="um_cp_my_account2">
+                            <div class="um_cp_ma_result" style="font-size: 50px;" id="result">0</div>
+                            <span style="font-weight: bold; font-size: 50px;"> 세</span>
+                        </div>
+                        <div class="um_cp_my_account3">
+                            <div class="um_cp_ma_result" id="opinion">한마디</div>
+                        </div>
                     </div>
-                    <div class="um_cp_my_account3">
-                        <div class="um_cp_ma_result" id="opinion">한마디</div>
+                    <div class="um_save_button_box">
+                        <button class="um_save_button">
+                            저장하기
+                        </button>
+                        <button class="um_exit_button">
+                            나가기
+                        </button>
                     </div>
-                </div>
-                <div class="um_exit_button_box">
-                    <button class="um_exit_button">
-                        확인
-                    </button>
                 </div>
             </div>
         </div>
+        <div class="main_title_box">
+            <h1 class="main_title">나의 얼굴 나이는 몇살일까?</h1>
+        </div>
+        <div class="main_button_box">
+            <button type="button" class="upload_modal_button">
+                확인해보기
+            </button>
+        </div>
+
+
     </div>
-    <h1>hi</h1>
-    <button type="button" class="upload_modal_button">
-        얼굴 나이 확인하기
-    </button>
 </body>
 <script src="../static/index.js"></script>
 
