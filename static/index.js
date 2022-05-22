@@ -139,7 +139,7 @@ um_header_upload_btn.addEventListener('click', () => {
         success: function (response) {
             alert(response['msg'])
             // window.location.reload()
-            getFileInfo(response.filename)
+            getFileInfo(response.result)
 
         },
 
@@ -148,18 +148,17 @@ um_header_upload_btn.addEventListener('click', () => {
 })
 
 
-// 측정 결과 데이터 불러오기
-async function getFileInfo(filename) {
+// 측정 결과 보여주기
+async function getFileInfo(result) {
 
-    const response = await fetch(`http://127.0.0.1:5000/calculate/${filename}`, {
-        method: 'GET',
-    })
-    response_json = await response.json()
-    console.log(response_json)
+    // const response = await fetch(`http://127.0.0.1:5000/calculate/${filename}`, {
+    //     method: 'GET',
+    // })
+    // response_json = await response.json()
+    // console.log(response_json)
 
     // 구현 데이터(임시)
-    const result = response_json.result
-    const img_name = result.img_name
+    const result_img_name = result.result_img_name
     const input_age = result.input_age
     const result_age = result.result_age
 
@@ -167,7 +166,7 @@ async function getFileInfo(filename) {
     // img_name = model_result.img_name
     // result_age = model_result.result_age
 
-    um_preview_images.setAttribute("src", `http://127.0.0.1:5000/static/img/result_img/${img_name}`)
+    um_preview_images.setAttribute("src", `http://127.0.0.1:5000/static/img/result_img/${result_img_name}`)
     show_result.innerText = result_age
     if (input_age - result_age > 0) {
         opinion.innerText = "동안이시네요!"
@@ -200,7 +199,7 @@ function modalTransform() {
 
 
 // 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
-um_save_button.addEventListener('click', function (e) {
+function saveData() {
     $.ajax({
         type: "POST",
         url: "http://127.0.0.1:5000/post",
@@ -211,10 +210,9 @@ um_save_button.addEventListener('click', function (e) {
             alert(response['msg'])
             upload_modal_wrapper.style.display = 'none'
             window.location.reload()
-        },
+        }
     })
-
-})
+}
 
 // 확인 버튼 클릭 시 모달 숨김
 um_exit_button.addEventListener('click', function (e) {
