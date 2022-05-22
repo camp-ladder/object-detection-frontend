@@ -14,11 +14,12 @@ const um_cp_ma_form = document.querySelector('.um_cp_ma_form')
 const um_cp_ma_f_input = document.getElementById('.um_cp_ma_f_input');
 const um_save_button_box = document.querySelector('.um_save_button_box')
 const um_save_button = document.querySelector('.um_save_button')
+const um_exit_button = document.querySelector('.um_exit_button')
 
 const um_comment_ready = document.querySelector('.um_comment_ready');
 const um_comment_page = document.querySelector('.um_comment_page');
 const um_cp_ma_result = document.querySelector('.um_cp_ma_result');
-const result = document.getElementById('result');
+const show_result = document.getElementById('show_result');
 const opinion = document.getElementById('opinion');
 
 const mh_i_square = document.querySelector('.mh_i_square')
@@ -125,13 +126,13 @@ upload_modal.addEventListener('drop', function (e) {
 // })
 
 
-// 업로드 실행
+// 업로드 및 측정 실행
 um_header_upload_btn.addEventListener('click', () => {
     let age_give = $('#um_cp_ma_f_input').val() // 입력값
     formData.append('input_age', age_give)
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:5000/post",
+        url: "http://127.0.0.1:5000/calculate",
         data: formData,
         processData: false,
         contentType: false,
@@ -139,6 +140,7 @@ um_header_upload_btn.addEventListener('click', () => {
             alert(response['msg'])
             // window.location.reload()
             getFileInfo(response.filename)
+
         },
 
     })
@@ -146,39 +148,34 @@ um_header_upload_btn.addEventListener('click', () => {
 })
 
 
-// 파일 정보 불러오기
+// 측정 결과 데이터 불러오기
 async function getFileInfo(filename) {
 
-    const fileData = {
-        filename: filename,
-    }
-
-    const response = await fetch('http://127.0.0.1:5000/posts', {
-        method: 'POST',
-        body: JSON.stringify(fileData)
-
+    const response = await fetch(`http://127.0.0.1:5000/calculate/${filename}`, {
+        method: 'GET',
     })
     response_json = await response.json()
     console.log(response_json)
 
     // 구현 데이터(임시)
-    post = response_json.post
-    img_name = post.img_name
-    input_age = post.input_age
+    const result = response_json.result
+    const img_name = result.img_name
+    const input_age = result.input_age
+    const result_age = result.result_age
 
     // model_result = response_json.model_result
     // img_name = model_result.img_name
     // result_age = model_result.result_age
 
-    um_preview_images.setAttribute("src", `http://127.0.0.1:5000/static/img/upload_img/${img_name}`)
-    // result.innerText = result_age
-    // if (input_age - result_age > 0) {
-    //     opinion.innerText = "너무 속상해 하지 마세요"
-    // } else if (input_age - result_age == 0) {
-    //     opinion.innerText = "정확합니다!"
-    // } else {
-    //     opinion.innerText = "동안이시네요!"
-    // }
+    um_preview_images.setAttribute("src", `http://127.0.0.1:5000/static/img/result_img/${img_name}`)
+    show_result.innerText = result_age
+    if (input_age - result_age > 0) {
+        opinion.innerText = "동안이시네요!"
+    } else if (input_age - result_age == 0) {
+        opinion.innerText = "정확합니다!"
+    } else {
+        opinion.innerText = "너무 속상해 하지 마세요"
+    }
 
     modalTransform()
 }
@@ -202,10 +199,21 @@ function modalTransform() {
 }
 
 
-// 확인 버튼 클릭 시 모달 숨김
+// 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
 um_save_button.addEventListener('click', function (e) {
-    upload_modal_wrapper.style.display = 'none'
-    window.location.reload()
+    $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:5000/post",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            alert(response['msg'])
+            upload_modal_wrapper.style.display = 'none'
+            window.location.reload()
+        },
+    })
+
 })
 
 // 확인 버튼 클릭 시 모달 숨김
