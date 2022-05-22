@@ -152,6 +152,7 @@ async function getFileInfo(result) {
     // console.log(response_json)
 
     // 구현 데이터(임시)
+    const result_id = result._id
     const result_img_name = result.result_img_name
     const input_age = result.input_age
     const result_age = result.result_age
@@ -169,6 +170,8 @@ async function getFileInfo(result) {
     } else {
         opinion.innerText = "너무 속상해 하지 마세요"
     }
+
+    um_save_button.setAttribute("onclick", `saveData('${result_id}')`) // 저장하기 버튼에 _id 보내줌
 
     modalTransform()
 }
@@ -193,7 +196,9 @@ function modalTransform() {
 
 
 // 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
-async function saveData() {
+async function saveData(result_id) {
+
+    formData.append('result_id', result_id) // result_id 함께 저장
 
     const response = await fetch('http://127.0.0.1:5000/post', {
         method: 'POST',
