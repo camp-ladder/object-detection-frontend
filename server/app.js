@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-const backend_base_url = "http://127.0.0.1:5005"
+const backend_base_url = "http://127.0.0.1:9999"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 
@@ -88,8 +88,6 @@ async function userLogin() {
 
     })
 
-    console.log(response)
-
     response_json = await response.json();
     console.log(response_json)
     localStorage.setItem("token", response_json.token)
@@ -99,7 +97,7 @@ async function userLogin() {
         return
     } else if (response.status === 200) {
         alert("로그인 완료!")
-        window.location.replace(`${frontend_base_url}/`);
+        window.location.replace(`${frontend_base_url}/templates/post.html`);
     }
 }
 
