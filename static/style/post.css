@@ -300,3 +300,9 @@ body {
 .upload_modal_button:hover {
     cursor: pointer;
 }
+
+.btn-outline-success {
+    width: 200px;
+    height: 80px;
+    font-size: 30px;
+}

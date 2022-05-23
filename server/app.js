@@ -130,7 +130,52 @@ async function getName() {
 ////////////////////////////////////////////////////////////////////////////////
 function logout() {
     localStorage.removeItem("token")
-    window.location.replace(`${frontend_base_url}/`);
+    window.location.replace(`${frontend_base_url}/templates/post.html`);
 }
 
-// 
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// 포스트
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+async function postCalculator(formData) {
+    const response = await fetch(`${backend_base_url}/calculator`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+    })
+    response_json = await response.json()
+    console.log(response_json)
+    return response_json
+}
+// 게시물 저장(원본 데이터)
+async function postFile(result_id) {
+    const response = await fetch(`${backend_base_url}/post`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+    })
+    response_json = await response.json()
+    console.log(response_json)
+    return response_json
+}
+
+// 확인 버튼 클릭 시 모달 숨김
+async function deleteResult(result_id) {
+    const response = await fetch(`${backend_base_url}/result/${result_id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        }
+    })
+    response_json = await response.json()
+    console.log(response_json)
+    return response_json
+}
