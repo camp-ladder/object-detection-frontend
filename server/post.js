@@ -126,23 +126,32 @@ upload_modal.addEventListener('drop', function (e) {
 // })
 
 
+// // 업로드 및 측정 실행
+// um_header_upload_btn.addEventListener('click', async () => {
+//     console.log(um_cp_ma_f_input)
+//     let age_give = um_cp_ma_f_input.value // 입력값
+//     formData.append('input_age', age_give)
+
+//     const response = await fetch(`${backend_base_url_2}/calculator`, {
+//         method: 'POST',
+//         body: formData,
+//         headers: {
+//             'Authorization': localStorage.getItem("token")
+//         },
+
+//     })
+//     console.log(response)
+//     response_json = await response.json()
+//     console.log(response_json)
+//     getFileInfo(response_json.result)
+// })
+
+
 // 업로드 및 측정 실행
 um_header_upload_btn.addEventListener('click', async () => {
-    console.log(um_cp_ma_f_input)
     let age_give = um_cp_ma_f_input.value // 입력값
     formData.append('input_age', age_give)
-
-    const response = await fetch(`${backend_base_url_2}/calculator`, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Authorization': localStorage.getItem("token")
-        },
-
-    })
-    console.log(response)
-    response_json = await response.json()
-    console.log(response_json)
+    const response_json = await postCalculator(formData)
     getFileInfo(response_json.result)
 })
 
@@ -201,37 +210,56 @@ function modalTransform() {
 }
 
 
+// // 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
+// async function saveData(result_id) {
+
+//     formData.append('result_id', result_id) // result_id 함께 저장
+
+//     const response = await fetch(`${backend_base_url_2}/post`, {
+//         method: 'POST',
+//         body: formData,
+//         headers: {
+//             'Authorization': localStorage.getItem("token")
+//         },
+//     })
+//     response_json = await response.json()
+//     console.log(response_json)
+//     alert(response_json['msg'])
+//     upload_modal_wrapper.style.display = 'none'
+//     window.location.reload()
+// }
+
+
 // 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
 async function saveData(result_id) {
-
     formData.append('result_id', result_id) // result_id 함께 저장
-
-    const response = await fetch(`${backend_base_url_2}/post`, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Authorization': localStorage.getItem("token")
-        },
-    })
-    response_json = await response.json()
-    console.log(response_json)
+    const response_json = await postFile(result_id)
     alert(response_json['msg'])
     upload_modal_wrapper.style.display = 'none'
     window.location.reload()
 }
 
 
+// // 확인 버튼 클릭 시 모달 숨김
+// async function exit(result_id) {
+
+//     const response = await fetch(`${backend_base_url_2}/result/${result_id}`, {
+//         method: 'DELETE',
+//         // headers: {
+//         //     'Authorization': localStorage.getItem("user_token")
+//         // }
+//     })
+//     response_json = await response.json()
+//     console.log(response_json)
+//     upload_modal_wrapper.style.display = 'none'
+//     window.location.reload()
+// }
+
+
 // 확인 버튼 클릭 시 모달 숨김
 async function exit(result_id) {
-
-    const response = await fetch(`${backend_base_url_2}/result/${result_id}`, {
-        method: 'DELETE',
-        // headers: {
-        //     'Authorization': localStorage.getItem("user_token")
-        // }
-    })
-    response_json = await response.json()
-    console.log(response_json)
+    const response_json = await deleteResult(result_id)
+    console.log(response_json['msg'])
     upload_modal_wrapper.style.display = 'none'
     window.location.reload()
 }
