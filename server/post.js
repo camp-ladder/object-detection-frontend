@@ -1,4 +1,4 @@
-const backend_base_url = "http://127.0.0.1:5000"
+const backend_base_url = "http://127.0.0.1:9999"
 const frontend_base_url = "http://127.0.0.1:5500"
 
 // select값 가져오기(getElementBy로 바꿔까 고민 중)
@@ -132,10 +132,15 @@ um_header_upload_btn.addEventListener('click', async () => {
     let age_give = um_cp_ma_f_input.value // 입력값
     formData.append('input_age', age_give)
 
-    const response = await fetch('http://127.0.0.1:5000/calculate', {
+    const response = await fetch(`${backend_base_url}/calculate`, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
+
     })
+    console.log(response)
     response_json = await response.json()
     console.log(response_json)
     getFileInfo(response_json.result)
@@ -156,12 +161,12 @@ async function getFileInfo(result) {
     const result_img_name = result.result_img_name
     const input_age = result.input_age
     const result_age = result.result_age
-
+    console.log(`${backend_base_url}/static/img/result/${result_img_name}`)
     // model_result = response_json.model_result
     // img_name = model_result.img_name
     // result_age = model_result.result_age
 
-    um_preview_images.setAttribute("src", `http://127.0.0.1:5000/static/img/result_img/${result_img_name}`)
+    um_preview_images.setAttribute("src", `${backend_base_url}/static/img/result/${result_img_name}`)
     show_result.innerText = result_age
     if (input_age - result_age > 0) {
         opinion.innerText = "동안이시네요!"
@@ -201,9 +206,12 @@ async function saveData(result_id) {
 
     formData.append('result_id', result_id) // result_id 함께 저장
 
-    const response = await fetch('http://127.0.0.1:5000/post', {
+    const response = await fetch(`${backend_base_url}/post`, {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers: {
+            'Authorization': localStorage.getItem("token")
+        },
     })
     response_json = await response.json()
     console.log(response_json)
@@ -216,7 +224,7 @@ async function saveData(result_id) {
 // 확인 버튼 클릭 시 모달 숨김
 async function exit(result_id) {
 
-    const response = await fetch(`http://127.0.0.1:5000/result/${result_id}`, {
+    const response = await fetch(`${backend_base_url}/result/${result_id}`, {
         method: 'DELETE',
         // headers: {
         //     'Authorization': localStorage.getItem("user_token")
