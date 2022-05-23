@@ -1,5 +1,5 @@
-const backend_base_url = "http://127.0.0.1:9999"
-const frontend_base_url = "http://127.0.0.1:5500"
+const backend_base_url_2 = "http://127.0.0.1:9999"
+const frontend_base_url_2 = "http://127.0.0.1:5500"
 
 // select값 가져오기(getElementBy로 바꿔까 고민 중)
 const upload_modal_button = document.querySelector('.upload_modal_button')
@@ -132,7 +132,7 @@ um_header_upload_btn.addEventListener('click', async () => {
     let age_give = um_cp_ma_f_input.value // 입력값
     formData.append('input_age', age_give)
 
-    const response = await fetch(`${backend_base_url}/calculate`, {
+    const response = await fetch(`${backend_base_url_2}/calculator`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -158,15 +158,15 @@ async function getFileInfo(result) {
 
     // 구현 데이터(임시)
     const result_id = result._id
-    const result_img_name = result.result_img_name
+    const result_img_name = result.result_title
     const input_age = result.input_age
-    const result_age = result.result_age
-    console.log(`${backend_base_url}/static/img/result/${result_img_name}`)
+    const result_age = result.age_pred
+    console.log(`${backend_base_url_2}/${result_img_name}`)
     // model_result = response_json.model_result
     // img_name = model_result.img_name
     // result_age = model_result.result_age
 
-    um_preview_images.setAttribute("src", `${backend_base_url}/static/img/result/${result_img_name}`)
+    um_preview_images.setAttribute("src", `${backend_base_url_2}/${result_img_name}`)
     show_result.innerText = result_age
     if (input_age - result_age > 0) {
         opinion.innerText = "동안이시네요!"
@@ -206,7 +206,7 @@ async function saveData(result_id) {
 
     formData.append('result_id', result_id) // result_id 함께 저장
 
-    const response = await fetch(`${backend_base_url}/post`, {
+    const response = await fetch(`${backend_base_url_2}/post`, {
         method: 'POST',
         body: formData,
         headers: {
@@ -224,7 +224,7 @@ async function saveData(result_id) {
 // 확인 버튼 클릭 시 모달 숨김
 async function exit(result_id) {
 
-    const response = await fetch(`${backend_base_url}/result/${result_id}`, {
+    const response = await fetch(`${backend_base_url_2}/result/${result_id}`, {
         method: 'DELETE',
         // headers: {
         //     'Authorization': localStorage.getItem("user_token")
