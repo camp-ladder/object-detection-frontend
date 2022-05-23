@@ -52,4 +52,13 @@ body {
 
     margin-top: 10px;
 }
+
+.form-signin .kakao_btn {
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 10px auto;
+    color: transparent;
+    height: 45px;
+}
+
 .form-signup .link-info:focus {}
