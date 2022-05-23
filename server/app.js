@@ -128,7 +128,7 @@ async function getName() {
 ////////////////////////////////////////////////////////////////////////////////
 function logout() {
     localStorage.removeItem("token")
-    window.location.replace(`${frontend_base_url}/`);
+    window.location.replace(`${frontend_base_url}/templates/post.html`);
 }
 
 
