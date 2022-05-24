@@ -153,7 +153,7 @@ upload_modal.addEventListener('drop', function (e) {
 um_header_upload_btn.addEventListener('click', async () => {
     um_cp_ma_form.style.display = 'none'
     upload_modal.style.transition = 500 + "ms"
-    upload_modal.style.height = 550 + "px"
+    upload_modal.style.height = 85 + '%'
     um_comment_ready.style.display = 'block'
     let input_age = um_cp_ma_f_input.value // 입력값
     formData.append('input_age', input_age)
