@@ -42,22 +42,22 @@ async function userSignup() {
     if (response_json.sign_error == 770) {
         alert("아이디 혹은 이메일을 입력하세요.")
         return
-    } if (response_json.sign_error == 771) {
+    } else if (response_json.sign_error == 771) {
         alert("이메일 형식이 아닙니다.")
         return
-    } if (response_json.sign_error == 772) {
+    } else if (response_json.sign_error == 772) {
         alert("비밀번호를 입력하세요.")
         return
-    } if (response_json.sign_error == 773) {
+    } else if (response_json.sign_error == 773) {
         alert("비밀번호를 확인해주세요.")
         return
-    } if (response_json.sign_error == 774) {
+    } else if (response_json.sign_error == 774) {
         alert("나이를 입력해주세요.")
         return
-    } if (response_json.sign_error == 775) {
+    } else if (response_json.sign_error == 775) {
         alert("중복된 아이디입니다.")
         return
-    } if (response_json.sign_error == 776) {
+    } else if (response_json.sign_error == 776) {
         alert("중복된 이메일입니다.")
         return
     } else {

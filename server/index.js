@@ -28,8 +28,6 @@ async function checkLogin() {
         // mw_b_content.appendChild(id_button)
         // mw_b_content.appendChild(wellcome_msg)
 
-        loginoutButton.innerText = "로그아웃"
-        loginoutButton.setAttribute("onclick", "logout()")
     }
     else {
         wellcome_msg.innerHTML = "로그인을 해주세요."
