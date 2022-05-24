@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 부트스트랩 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <script src="../server/app.js"></script>
+    <script src="../server/index.js"></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="../static/style/post.css">
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="upload_modal_wrapper">
+            <div class="upload_modal">
+                <div class="um_header">
+                    사진 업로드
+                    <span class="um_header_upload_btn">측정</span>
+                    <span class="um_header_cancel_btn">취소</span>
+                </div>
+                <div class="um_body">
+                    <div class="up_load_button_box">
+                        <div class="ul_bb_prev">
+                            <i class="bi bi-chevron-left"></i>
+                        </div>
+                        <div class="ul_bb_next">
+                            <i class="bi bi-chevron-right"></i>
+                        </div>
+                    </div>
+                    <div id="um_preview_image_box">
+                        <div id="um_p_ib_wrapper" class="um_p_ib_wrapper">
+                            <img class="um_preview_images" src="">
+                        </div>
+                        <form class="um_cp_ma_form">
+                            <input placeholder="나이를 입력해 주세요." onfocus="this.placeholder=''"
+                                onblur="this.placeholder='나이를 입력해 주세요.'" type="text" id="um_cp_ma_f_input" />
+                        </form>
+                    </div>
+                    <div class="um_desc">사진을 끌어다 놓으세요</div>
+                    <div class="um_comment_ready">
+                        <div class="um_cp_my_account">
+                            <div class="um_cp_ma_ready">측정 중 입니다...</div>
+                        </div>
+                    </div>
+                    <div class="um_comment_page">
+                        <div class="um_cp_my_account">
+                            <div class="um_cp_ma_result">측정 결과</div>
+                        </div>
+                        <div class="um_cp_my_account2">
+                            <div class="um_cp_ma_result" style="font-size: 50px;" id="show_result">0</div>
+                            <span style="font-weight: bold; font-size: 30px;" id="show_age"> 세</span>
+                        </div>
+                        <div class="um_cp_my_account3">
+                            <div class="um_cp_ma_result" id="opinion"></div>
+                        </div>
+                    </div>
+                    <div class="um_save_button_box">
+                        <button class="um_save_button" onclick="saveData()">
+                            저장하기
+                        </button>
+                        <button class="um_exit_button" onclick="exit()">
+                            나가기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="main_title_box"
+            style="display: flex; justify-content: center; align-items: center; font-size: 50px; font-weight: bold;">
+            <p id="useremail"></p>
+        </div> -->
+
+        <div class="main_box">
+            <div class="main_wellcom_box" id="main_wellcom_box">
+                <div class="mw_b_content" id="mw_b_content">
+                    <button class="id_button" id="id_button" onclick="profileMode()"></button>
+                    <span class="wellcome_msg" id="wellcome_msg">님 환영합니다.</span>
+                </div>
+                <div class="mw_b_empty">
+                    <div class="pofile_modal_wrapper" id="pofile_modal_wrapper">
+                        <div class="pofile_modal">
+                            <div class="pm_button_box">
+                                <button class="pm_button">내 게시물</button>
+                            </div>
+                            <div class="pm_button_box">
+                                <button class="pm_button" onclick="logout()">로그아웃</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="main_content_box">
+                <div class="main_title_box">
+                    <div>
+                        <h1 class="main_title">나의 얼굴 나이는 몇살일까?</h1>
+                    </div>
+                </div>
+                <div class="main_button_box">
+                    <button type="button" class="upload_modal_button">
+                        확인해보기
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- <div style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">
+            <button class="btn btn-outline-success" type=" button" id="button-loginout" onclick="logout()">로그아웃</button>
+        </div> -->
+    </div>
+</body>
+<script src="../server/post.js"></script>
+
+</html>
