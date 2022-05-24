@@ -2,6 +2,7 @@ const backend_base_url_2 = "http://127.0.0.1:9999"
 const frontend_base_url_2 = "http://127.0.0.1:5500"
 
 // select값 가져오기(getElementBy로 바꿔까 고민 중)
+const main = document.querySelector('.main')
 const upload_modal_button = document.querySelector('.upload_modal_button')
 const upload_modal = document.querySelector('.upload_modal');
 // const um_header_exit_btn = document.querySelector('.um_header_exit_btn')
@@ -28,6 +29,10 @@ const mh_i_square = document.querySelector('.mh_i_square')
 const upload_modal_wrapper = document.querySelector('.upload_modal_wrapper')
 const ul_bb_prev = document.querySelector('.ul_bb_prev')
 const ul_bb_next = document.querySelector('.ul_bb_next')
+
+const pofile_modal_wrapper = document.querySelector('.pofile_modal_wrapper')
+
+
 
 
 
@@ -280,3 +285,12 @@ um_header_cancel_btn.addEventListener('click', function (e) {
     window.location.reload()
 
 })
+
+function profileMode() {
+    if (getComputedStyle(pofile_modal_wrapper).display === 'none') {
+        pofile_modal_wrapper.style.display = 'flex'
+    } else {
+        pofile_modal_wrapper.style.display = 'none'
+    }
+}
+
