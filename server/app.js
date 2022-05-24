@@ -128,17 +128,21 @@ async function getName() {
 async function getkakao() {
     // 로그인 연결
     let url = new URL(window.location.href).searchParams.get('code')
-    const code_url = { code: url }
-    const response = await fetch(`${backend_base_url}/oauth`, {
-        method: 'POST',
-        body: JSON.stringify(code_url)
-    })
 
-    console.log(response)
+    if (url != null) {
+        const code_url = { code: url }
+        const response = await fetch(`${backend_base_url}/oauth`, {
+            method: 'POST',
+            body: JSON.stringify(code_url)
+        })
 
-    response_json = await response.json();
-    console.log(response_json)
-    localStorage.setItem("token", response_json.token)
+        console.log(response)
+
+        response_json = await response.json();
+        console.log(response_json)
+        localStorage.setItem("token", response_json.token)
+        window.location.reload()
+    }
 
     // window.location.replace(`${frontend_base_url}/templates/post.html`)
 

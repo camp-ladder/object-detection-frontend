@@ -97,9 +97,9 @@ body {
 }
 
 .um_p_ib_wrapper {
-    /* display: table-cell; */
+    display: table-cell;
     width: 380px;
-    max-height: 380px;
+    /* max-height: 380px; */
     overflow: hidden;
 }
 
