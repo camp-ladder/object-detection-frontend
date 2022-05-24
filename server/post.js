@@ -158,45 +158,53 @@ um_header_upload_btn.addEventListener('click', async () => {
     let input_age = um_cp_ma_f_input.value // 입력값
     formData.append('input_age', input_age)
     const response_json = await postCalculator(formData)
-    getFileInfo(response_json.result)
+    getFileInfo(response_json.person, response_json.result)
 })
 
 
 // 측정 결과 보여주기
-async function getFileInfo(result) {
+async function getFileInfo(person, result) {
 
-    // const response = await fetch(`http://127.0.0.1:5000/result/${filename}`, {
-    //     method: 'GET',
-    // })
-    // response_json = await response.json()
-    // console.log(response_json)
+    if (person == 0) {
+        alert('얼굴이 잘 나온 사진을 넣어주세요!')
+        window.location.reload()
+    } else if (person == 2) {
+        alert('한 명만 넣어주세요!')
+        window.location.reload()
+    } else if (person == 1) {
+        // const response = await fetch(`http://127.0.0.1:5000/result/${filename}`, {
+        //     method: 'GET',
+        // })
+        // response_json = await response.json()
+        // console.log(response_json)
 
-    // 구현 데이터(임시)
-    const result_id = result._id
-    const result_img_name = result.result_title
-    const input_age = result.input_age
-    const result_age = result.age_pred
-    const sex = result.sex
-    console.log(`${backend_base_url_2}/${result_img_name}`)
-    // model_result = response_json.model_result
-    // img_name = model_result.img_name
-    // result_age = model_result.result_age
+        // 구현 데이터(임시)
+        const result_id = result._id
+        const result_img_name = result.result_title
+        const input_age = result.input_age
+        const result_age = result.age_pred
+        const sex = result.sex
+        console.log(`${backend_base_url_2}/${result_img_name}`)
+        // model_result = response_json.model_result
+        // img_name = model_result.img_name
+        // result_age = model_result.result_age
 
-    um_preview_images.setAttribute("src", `${backend_base_url_2}/${result_img_name}`)
-    show_result.innerText = result_age + '세'
-    show_age.innerText = '(' + sex + ')'
-    if (input_age - result_age > 0) {
-        opinion.innerText = "동안이시네요!"
-    } else if (input_age - result_age == 0) {
-        opinion.innerText = "정확합니다!"
-    } else {
-        opinion.innerText = "너무 속상해 하지 마세요"
+        um_preview_images.setAttribute("src", `${backend_base_url_2}/${result_img_name}`)
+        show_result.innerText = result_age + '세'
+        show_age.innerText = '(' + sex + ')'
+        if (input_age - result_age > 0) {
+            opinion.innerText = "동안이시네요!"
+        } else if (input_age - result_age == 0) {
+            opinion.innerText = "정확합니다!"
+        } else {
+            opinion.innerText = "너무 속상해 하지 마세요"
+        }
+
+        um_save_button.setAttribute("onclick", `saveData('${result_id}')`) // 저장하기 버튼에 _id 보내줌
+        um_exit_button.setAttribute("onclick", `exit('${result_id}')`)
+
+        modalTransform()
     }
-
-    um_save_button.setAttribute("onclick", `saveData('${result_id}')`) // 저장하기 버튼에 _id 보내줌
-    um_exit_button.setAttribute("onclick", `exit('${result_id}')`)
-
-    modalTransform()
 }
 
 
