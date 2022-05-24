@@ -75,25 +75,48 @@
                 </div>
             </div>
         </div>
-        <div class="main_title_box"
+        <!-- <div class="main_title_box"
             style="display: flex; justify-content: center; align-items: center; font-size: 50px; font-weight: bold;">
             <p id="useremail"></p>
-        </div>
-        <div class="main_content_box">
-            <div class="main_title_box">
-                <div>
-                    <h1 class="main_title">나의 얼굴 나이는 몇살일까?</h1>
+        </div> -->
+
+        <div class="main_box">
+            <div class="main_wellcom_box" id="main_wellcom_box">
+                <div class="mw_b_content" id="mw_b_content">
+                    <button class="id_button" id="id_button" onclick="profileMode()"></button>
+                    <span class="wellcome_msg" id="wellcome_msg">님 환영합니다.</span>
+                </div>
+                <div class="mw_b_empty">
+                    <div class="pofile_modal_wrapper" id="pofile_modal_wrapper">
+                        <div class="pofile_modal">
+                            <div class="pm_button_box">
+                                <button class="pm_button">내 게시물</button>
+                            </div>
+                            <div class="pm_button_box">
+                                <button class="pm_button" onclick="logout()">로그아웃</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="main_content_box">
+                <div class="main_title_box">
+                    <div>
+                        <h1 class="main_title">나의 얼굴 나이는 몇살일까?</h1>
+                    </div>
+                </div>
+                <div class="main_button_box">
+                    <button type="button" class="upload_modal_button">
+                        확인해보기
+                    </button>
                 </div>
             </div>
-            <div class="main_button_box">
-                <button type="button" class="upload_modal_button">
-                    확인해보기
-                </button>
-            </div>
         </div>
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">
+        <!-- <div style="display: flex; justify-content: center; align-items: center; margin-top: 50px;">
             <button class="btn btn-outline-success" type=" button" id="button-loginout" onclick="logout()">로그아웃</button>
-        </div>
+        </div> -->
     </div>
 </body>
 <script src="../server/post.js"></script>
