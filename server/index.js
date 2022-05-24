@@ -71,5 +71,8 @@ const id_button = document.getElementById('id_button')
 
 
 // 바로 실행
-getkakao();
+if (window.localStorage.getItem('token') == null) {
+    getkakao();
+}
+
 checkLogin();

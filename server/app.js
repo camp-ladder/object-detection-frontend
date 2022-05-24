@@ -137,7 +137,6 @@ async function getkakao() {
         })
 
         console.log(response)
-
         response_json = await response.json();
         console.log(response_json)
         localStorage.setItem("token", response_json.token)
