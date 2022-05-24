@@ -85,7 +85,6 @@ upload_modal.addEventListener('drop', function (e) {
     if (!isValid(data)) return;
 
     // 이미지 박스 가로 길이 설정
-    // um_p_ib_wrapper.style.width = 400 * data.files.length + "px"
     file_length = data.files.length
 
     // 이미지 프리뷰
@@ -95,10 +94,6 @@ upload_modal.addEventListener('drop', function (e) {
         const reader = new FileReader(); // 파일 읽는 함수
         reader.onload = () => {
             um_preview_images.setAttribute("src", reader.result)
-            // um_p_ib_wrapper.innerHTML +=
-            //     `
-            // <img class="um_preview_images" src="${reader.result}">
-            // `
         }
 
         reader.readAsDataURL(data.files[i]) // readAsDataURL: 컨텐츠를 특정 File에서 읽어 옴
@@ -112,47 +107,6 @@ upload_modal.addEventListener('drop', function (e) {
         ul_bb_next.style.visibility = 'visible'
     }
 });
-
-// // 이미지 캐러셀 처리
-// ul_bb_cur_idx = 0
-// ul_bb_next.addEventListener('click', function () {
-//     ul_bb_prev.style.visibility = 'visible'
-//     if (++ul_bb_cur_idx == file_length - 1) {
-//         ul_bb_next.style.visibility = 'hidden'
-//     }
-//     um_p_ib_wrapper.style.transition = 500 + 'ms'
-//     um_p_ib_wrapper.style.transform = "translate3d(-" + (400 * ul_bb_cur_idx) + "px,0px,0px)"
-// })
-// ul_bb_prev.addEventListener('click', function () {
-//     if (--ul_bb_cur_idx == 0) {
-//         ul_bb_prev.style.visibility = 'hidden'
-//     }
-//     um_p_ib_wrapper.style.transform = "translate3d(-" + (400 * ul_bb_cur_idx) + "px, 0px, 0px)"
-//     ul_bb_next.style.visibility = 'visible'
-//     um_p_ib_wrapper.style.transition = 500 + 'ms'
-// })
-
-
-// // 업로드 및 측정 실행
-// um_header_upload_btn.addEventListener('click', async () => {
-//     console.log(um_cp_ma_f_input)
-//     let age_give = um_cp_ma_f_input.value // 입력값
-//     formData.append('input_age', age_give)
-
-//     const response = await fetch(`${backend_base_url_2}/calculator`, {
-//         method: 'POST',
-//         body: formData,
-//         headers: {
-//             'Authorization': localStorage.getItem("token")
-//         },
-
-//     })
-//     console.log(response)
-//     response_json = await response.json()
-//     console.log(response_json)
-//     getFileInfo(response_json.result)
-// })
-
 
 // 업로드 및 측정 실행
 um_header_upload_btn.addEventListener('click', async () => {
@@ -177,11 +131,6 @@ async function getFileInfo(person, result) {
         alert('한 명만 넣어주세요!')
         window.location.reload()
     } else if (person == 1) {
-        // const response = await fetch(`http://127.0.0.1:5000/result/${filename}`, {
-        //     method: 'GET',
-        // })
-        // response_json = await response.json()
-        // console.log(response_json)
 
         // 구현 데이터(임시)
         const result_id = result._id
@@ -189,10 +138,6 @@ async function getFileInfo(person, result) {
         const input_age = result.input_age
         const result_age = result.age_pred
         const sex = result.sex
-        console.log(`${backend_base_url_2}/${result_img_name}`)
-        // model_result = response_json.model_result
-        // img_name = model_result.img_name
-        // result_age = model_result.result_age
 
         um_preview_images.setAttribute("src", `${backend_base_url_2}/${result_img_name}`)
         show_result.innerText = result_age + '세'
@@ -222,35 +167,7 @@ function modalTransform() {
     um_comment_ready.style.display = 'none'
     um_comment_page.style.display = 'block'
     um_header_cancel_btn.style.display = 'none'
-
-    // setTimeout(() => {
-    //     upload_modal.style.transition = 500 + "ms"
-    //     upload_modal.style.height = 800 + "px"
-    //     um_comment_ready.style.display = 'none'
-    //     um_comment_page.style.display = 'block'
-    // }, 3000)
 }
-
-
-// // 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
-// async function saveData(result_id) {
-
-//     formData.append('result_id', result_id) // result_id 함께 저장
-
-//     const response = await fetch(`${backend_base_url_2}/post`, {
-//         method: 'POST',
-//         body: formData,
-//         headers: {
-//             'Authorization': localStorage.getItem("token")
-//         },
-//     })
-//     response_json = await response.json()
-//     console.log(response_json)
-//     alert(response_json['msg'])
-//     upload_modal_wrapper.style.display = 'none'
-//     window.location.reload()
-// }
-
 
 // 저장 버튼 클릭 시 원본 데이터 저장, 모달 숨김
 async function saveData(result_id) {
@@ -261,27 +178,9 @@ async function saveData(result_id) {
     window.location.reload()
 }
 
-
-// // 확인 버튼 클릭 시 모달 숨김
-// async function exit(result_id) {
-
-//     const response = await fetch(`${backend_base_url_2}/result/${result_id}`, {
-//         method: 'DELETE',
-//         // headers: {
-//         //     'Authorization': localStorage.getItem("user_token")
-//         // }
-//     })
-//     response_json = await response.json()
-//     console.log(response_json)
-//     upload_modal_wrapper.style.display = 'none'
-//     window.location.reload()
-// }
-
-
 // 확인 버튼 클릭 시 모달 숨김
 async function exit(result_id) {
     const response_json = await deleteResult(result_id)
-    console.log(response_json['msg'])
     upload_modal_wrapper.style.display = 'none'
     window.location.reload()
 }
@@ -301,4 +200,3 @@ function profileMode() {
         pofile_modal_wrapper.style.display = 'none'
     }
 }
-

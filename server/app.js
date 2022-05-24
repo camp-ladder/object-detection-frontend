@@ -89,7 +89,6 @@ async function userLogin() {
     })
 
     response_json = await response.json();
-    console.log(response_json)
     localStorage.setItem("token", response_json.token)
 
     if (response.status === 401) {
@@ -97,7 +96,7 @@ async function userLogin() {
         return
     } else if (response.status === 200) {
         alert("로그인 완료!")
-        window.location.replace(`${frontend_base_url}/templates/post.html`);
+        window.location.replace(`${frontend_base_url}/templates/index.html`);
     }
 }
 
@@ -111,7 +110,6 @@ async function getName() {
     // status 200 확인 조건문
     if (response.status == 200) {
         response_json = await response.json()
-        console.log(response_json)
         return response_json.email
     } else {
         return null
@@ -136,15 +134,10 @@ async function getkakao() {
             body: JSON.stringify(code_url)
         })
 
-        console.log(response)
         response_json = await response.json();
-        console.log(response_json)
         localStorage.setItem("token", response_json.token)
         window.location.reload()
     }
-
-    // window.location.replace(`${frontend_base_url}/templates/post.html`)
-
 }
 
 
@@ -158,7 +151,7 @@ async function getkakao() {
 ////////////////////////////////////////////////////////////////////////////////
 function logout() {
     localStorage.removeItem("token")
-    window.location.replace(`${frontend_base_url}/templates/post.html`);
+    window.location.replace(`${frontend_base_url}/templates/index.html`);
 }
 
 
@@ -178,7 +171,6 @@ async function postCalculator(formData) {
         },
     })
     response_json = await response.json()
-    console.log(response_json)
     return response_json
 }
 // 게시물 저장(원본 데이터)
@@ -191,7 +183,6 @@ async function postFile(result_id) {
         },
     })
     response_json = await response.json()
-    console.log(response_json)
     return response_json
 }
 
@@ -204,6 +195,5 @@ async function deleteResult(result_id) {
         }
     })
     response_json = await response.json()
-    console.log(response_json)
     return response_json
 }
