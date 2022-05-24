@@ -46,7 +46,7 @@ body {
 .um_header {
     display: flex;
     justify-content: center;
-    height: 22px;
+    height: 42px;
     width: 100%;
     border-bottom: 0.5px solid rgb(200, 200, 200);
     padding: 10px 0;
@@ -57,8 +57,8 @@ body {
 
 .um_header_upload_btn {
     position: absolute;
-    left: 22rem;
-    top: 0.7rem;
+    left: 19.3rem;
+    top: 0.5rem;
     color: rgb(65, 147, 239);
     display: none;
 
@@ -67,6 +67,19 @@ body {
 }
 
 .um_header_upload_btn:hover {
+    cursor: pointer;
+}
+
+.um_header_cancel_btn {
+    position: absolute;
+    left: 22rem;
+    top: 0.5rem;
+    color: rgb(227, 98, 98);
+
+    font-size: 18px;
+}
+
+.um_header_cancel_btn:hover {
     cursor: pointer;
 }
 
@@ -85,6 +98,9 @@ body {
 
 .um_p_ib_wrapper {
     /* display: table-cell; */
+    width: 380px;
+    max-height: 380px;
+    overflow: hidden;
 }
 
 .up_load_button_box {
@@ -128,8 +144,7 @@ body {
 }
 
 .um_preview_images {
-    max-width: 380px;
-    max-height: 380px;
+    width: 100%;
 }
 
 .um_button {

@@ -6,6 +6,7 @@ const upload_modal_button = document.querySelector('.upload_modal_button')
 const upload_modal = document.querySelector('.upload_modal');
 // const um_header_exit_btn = document.querySelector('.um_header_exit_btn')
 const um_header_upload_btn = document.querySelector('.um_header_upload_btn');
+const um_header_cancel_btn = document.querySelector('.um_header_cancel_btn');
 const um_preview_image_box = document.getElementById('um_preview_image_box')
 const um_p_ib_wrapper = document.getElementById('um_p_ib_wrapper')
 const um_preview_images = document.querySelector('.um_preview_images')
@@ -20,6 +21,7 @@ const um_comment_ready = document.querySelector('.um_comment_ready');
 const um_comment_page = document.querySelector('.um_comment_page');
 const um_cp_ma_result = document.querySelector('.um_cp_ma_result');
 const show_result = document.getElementById('show_result');
+const show_age = document.getElementById('show_age');
 const opinion = document.getElementById('opinion');
 
 const mh_i_square = document.querySelector('.mh_i_square')
@@ -149,8 +151,12 @@ upload_modal.addEventListener('drop', function (e) {
 
 // 업로드 및 측정 실행
 um_header_upload_btn.addEventListener('click', async () => {
-    let age_give = um_cp_ma_f_input.value // 입력값
-    formData.append('input_age', age_give)
+    um_cp_ma_form.style.display = 'none'
+    upload_modal.style.transition = 500 + "ms"
+    upload_modal.style.height = 550 + "px"
+    um_comment_ready.style.display = 'block'
+    let input_age = um_cp_ma_f_input.value // 입력값
+    formData.append('input_age', input_age)
     const response_json = await postCalculator(formData)
     getFileInfo(response_json.result)
 })
@@ -170,13 +176,15 @@ async function getFileInfo(result) {
     const result_img_name = result.result_title
     const input_age = result.input_age
     const result_age = result.age_pred
+    const sex = result.sex
     console.log(`${backend_base_url_2}/${result_img_name}`)
     // model_result = response_json.model_result
     // img_name = model_result.img_name
     // result_age = model_result.result_age
 
     um_preview_images.setAttribute("src", `${backend_base_url_2}/${result_img_name}`)
-    show_result.innerText = result_age
+    show_result.innerText = result_age + '세'
+    show_age.innerText = '(' + sex + ')'
     if (input_age - result_age > 0) {
         opinion.innerText = "동안이시네요!"
     } else if (input_age - result_age == 0) {
@@ -195,18 +203,19 @@ async function getFileInfo(result) {
 // 모달 형태 변환
 function modalTransform() {
     um_header_upload_btn.style.display = 'none'
-    um_cp_ma_form.style.display = 'none'
-    upload_modal.style.transition = 500 + "ms"
-    upload_modal.style.height = 550 + "px"
     um_save_button_box.style.display = 'flex'
-    um_comment_ready.style.display = 'block'
+    upload_modal.style.transition = 500 + "ms"
+    upload_modal.style.height = 800 + "px"
+    um_comment_ready.style.display = 'none'
+    um_comment_page.style.display = 'block'
+    um_header_cancel_btn.style.display = 'none'
 
-    setTimeout(() => {
-        upload_modal.style.transition = 500 + "ms"
-        upload_modal.style.height = 800 + "px"
-        um_comment_ready.style.display = 'none'
-        um_comment_page.style.display = 'block'
-    }, 3000)
+    // setTimeout(() => {
+    //     upload_modal.style.transition = 500 + "ms"
+    //     upload_modal.style.height = 800 + "px"
+    //     um_comment_ready.style.display = 'none'
+    //     um_comment_page.style.display = 'block'
+    // }, 3000)
 }
 
 
@@ -265,10 +274,9 @@ async function exit(result_id) {
 }
 
 
-// 바깥 클릭 시 모달 숨김
-upload_modal_wrapper.addEventListener('click', function (e) {
-    if (e.target.classList.contains('upload_modal_wrapper')) {
-        upload_modal_wrapper.style.display = 'none'
-        window.location.reload()
-    }
+// 취소 버튼 클릭 시 모달 숨김
+um_header_cancel_btn.addEventListener('click', function (e) {
+    upload_modal_wrapper.style.display = 'none'
+    window.location.reload()
+
 })
