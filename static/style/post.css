@@ -15,7 +15,6 @@ body {
     padding: 30px 0 30px 0;
 }
 
-/* 업로드 버튼 모달 */
 .upload_modal_wrapper {
     position: absolute;
     width: 100vw;
@@ -99,7 +98,6 @@ body {
 .um_p_ib_wrapper {
     display: table-cell;
     width: 380px;
-    /* max-height: 380px; */
     overflow: hidden;
 }
 
@@ -279,7 +277,6 @@ body {
     box-shadow: 2px 2px rgba(189, 196, 208, 0.5);
 }
 
-/* 프로필 모달 */
 .pofile_modal_wrapper {
     position: absolute;
 
@@ -314,12 +311,10 @@ body {
     font-weight: bold;
 }
 
-/* 메인 박스 */
 .main_box {
     margin: auto;
 }
 
-/* 로그인 정보 박스 */
 .main_wellcom_box {
     margin: 0 auto 0 auto;
     padding: 5px;
@@ -358,7 +353,6 @@ body {
     margin: 0 280px 0 auto;
 }
 
-/* 메인 타이틀 박스*/
 .main_title_box {
     display: flex;
     justify-content: center;
@@ -370,7 +364,6 @@ body {
     font-weight: bold;
 }
 
-/* 메인 버튼 박스*/
 .main_button_box {
     display: flex;
     justify-content: center;
@@ -381,10 +374,8 @@ body {
 .upload_modal_button {
     width: 300px;
     height: 80px;
-
     font-size: 30px;
     font-weight: bold;
-
     color: rgb(255, 255, 255);
     background-color: rgb(55, 126, 213);
     border-radius: 10px;
