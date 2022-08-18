@@ -1,10 +1,8 @@
 async function checkLogin() {
     const email = await getName();
-    console.log(email);
 
     const id_button = document.getElementById('id_button')
     const wellcome_msg = document.getElementById('wellcome_msg')
-
     if (email) {
         id_button.innerHTML = email
         id_button.style.display = 'block'
@@ -16,11 +14,8 @@ async function checkLogin() {
         wellcome_msg.setAttribute("onclick", "location.href='/templates/login.html'")
     }
 }
-
 const id_button = document.getElementById('id_button')
 
-
-// 바로 실행
 if (window.localStorage.getItem('token') == null) {
     getkakao();
 }
